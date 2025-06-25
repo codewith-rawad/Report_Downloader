@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Medical Report Generator</title>
+
+  <!-- External Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/pizzip/dist/pizzip.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docxtemplater/build/docxtemplater.min.js"></script>
+  <script src="https://gildas-lormeau.github.io/zip.js/demos/lib/zip.min.js"></script>
+
+  <!-- Styles -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #e0f7fa, #ffffff);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+      direction: ltr;
+    }
+
+    h2 {
+      font-size: 2rem;
+      color: #00796b;
+      margin-bottom: 20px;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .loader {
+      border: 8px solid #f3f3f3;
+      border-top: 8px solid #00796b;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1.2s linear infinite;
+      margin: 0 auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .message {
+      margin-top: 15px;
+      color: #555;
+      font-size: 1.1rem;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>Preparing your medical report...</h2>
+  <div class="loader"></div>
+  <div class="message">Please wait a moment while the report is generated.</div>
+
+  <script src="script.js"></script>
+</body>
+</html>
