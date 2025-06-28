@@ -19,7 +19,7 @@
     }
 
     body {
-      background: linear-gradient(135deg, #e0f7fa, #ffffff);
+      background: linear-gradient(135deg, #d0f0ec, #ffffff);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -27,19 +27,13 @@
       justify-content: center;
       text-align: center;
       padding: 20px;
-      direction: ltr;
     }
 
     h2 {
-      font-size: 2rem;
+      font-size: 2.2rem;
       color: #00796b;
       margin-bottom: 20px;
-      animation: fadeIn 1.5s ease-in-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
+      animation: fadeIn 1.2s ease-in-out;
     }
 
     .loader {
@@ -52,15 +46,34 @@
       margin: 0 auto;
     }
 
+    .message {
+      margin-top: 15px;
+      color: #444;
+      font-size: 1.1rem;
+      animation: fadeIn 1.2s ease-in-out;
+    }
+
+    .success {
+      display: none;
+      color: #2e7d32;
+      font-size: 1.4rem;
+      margin-top: 30px;
+      animation: successFade 1.5s ease-in-out forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     @keyframes spin {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
 
-    .message {
-      margin-top: 15px;
-      color: #555;
-      font-size: 1.1rem;
+    @keyframes successFade {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
     }
   </style>
 </head>
@@ -69,6 +82,7 @@
   <h2>Preparing your medical report...</h2>
   <div class="loader"></div>
   <div class="message">Please wait a moment while the report is generated.</div>
+  <div class="success">✅ Report downloaded successfully!</div>
 
   <script src="script.js"></script>
 </body>
