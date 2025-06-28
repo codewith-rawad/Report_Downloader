@@ -1,9 +1,10 @@
 window.onload = async () => {
   // Extract data from the URL (e.g., ?patient=Ali&doctor=Dr+Sara&date=2025-06-25&report=Normal+lungs)
   const urlParams = new URLSearchParams(window.location.search);
-  const patient_name = urlParams.get("patient");
+  const patient_name = urlParams.get("name");
   const doctor_name = urlParams.get("doctor");
   const date = urlParams.get("date");
+  const age=urlParams.get("age")
   const report = urlParams.get("report");
 
   // Check if all required parameters are present
@@ -28,10 +29,11 @@ window.onload = async () => {
 
     // Inject the variables into the template - the keys must match the placeholders in the .docx
     doc.render({
-      patient_name: patient_name,
-      doctor_name: doctor_name,
+      name: patient_name,
+      doctor: doctor_name,
       report_date: date,
       report_text: report,
+      age:age
     });
 
     // Generate the final Word document as a Blob
