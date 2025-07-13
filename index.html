@@ -1,128 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <title>Generating Medical Report</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medical Report Generator</title>
 
   <!-- External Libraries -->
-  <script src="https://cdn.jsdelivr.net/npm/pizzip/dist/pizzip.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/docxtemplater/build/docxtemplater.min.js"></script>
-  <script src="https://gildas-lormeau.github.io/zip.js/demos/lib/zip.min.js"></script>
-  <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pizzip@3.6.0/dist/pizzip.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docxtemplater@3.37.9/build/docxtemplater.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pizzip@3.6.0/dist/pizzip-utils.min.js"></script>
+
   <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600;700&display=swap" rel="stylesheet" />
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Ubuntu', sans-serif;
-    }
+  <!-- Remix Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
 
-    body {
-      background: linear-gradient(to bottom right, #1e3c72, #2a5298);
-      color: white;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      padding: 30px;
-      overflow: hidden;
-    }
-
-    h2 {
-      font-size: 2.8rem;
-      text-shadow: 0 0 10px rgba(255,255,255,0.2);
-      margin-bottom: 25px;
-      animation: fadeInDown 1s ease-out;
-    }
-
-    .icon-medical {
-      font-size: 3.5rem;
-      margin-bottom: 20px;
-      color: #ffeb3b;
-      animation: pulse 2s infinite;
-    }
-
-    .loader {
-      width: 90px;
-      height: 90px;
-      border: 10px solid rgba(255,255,255,0.1);
-      border-top: 10px solid #ffc107;
-      border-radius: 50%;
-      animation: spin 1.2s linear infinite;
-      margin: 30px auto;
-    }
-
-    .message {
-      font-size: 1.2rem;
-      color: #e0f7fa;
-      animation: fadeInUp 1.2s ease-in-out;
-      text-align: center;
-    }
-
-    .success {
-      /* display: none; */
-      font-size: 3rem;
-      color: #b9f6ca;
-      margin-top: 30px;
-      animation: popUp 1s ease forwards;
-      font-weight: 500;
-    }
-
-    /* Floating SVG Icons */
-    .floating-img {
-      position: absolute;
-      width: 80px;
-      opacity: 0.1;
-      animation: float 15s infinite ease-in-out;
-    }
-
-    .img1 { top: 10%; left: 5%; animation-delay: 0s; }
-    .img2 { top: 50%; left: 90%; animation-delay: 4s; }
-    .img3 { bottom: 5%; left: 40%; animation-delay: 2s; }
-    .img4 { top: 25%; right: 10%; animation-delay: 6s; }
-
-    @keyframes spin {
-      0% { transform: rotate(0); }
-      100% { transform: rotate(360deg); }
-    }
-
-    @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes popUp {
-      from { transform: scale(0.9); opacity: 0; }
-      to { transform: scale(1.1); opacity: 1; }
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.1); opacity: 0.7; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-
-    @keyframes float {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-30px); }
-      100% { transform: translateY(0); }
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
   <!-- Medical Icon -->
-  <div class="icon-medical"><i class="ri-stethoscope-line"></i></div>
+  <div class="icon-medical">
+    <i class="ri-stethoscope-line"></i>
+  </div>
 
   <h2>Generating Medical Report</h2>
 
@@ -133,7 +35,22 @@
   <div class="success">✅ Report successfully downloaded!</div>
 
   <!-- Floating SVG Medical Icons -->
-  <img src="https://cdn-icons-png.flaticon.com/512/2838/2838912.png" class="floating-img img1" />
-  <img src="https://cdn-icons-png.flaticon.com/512/1046/1046784.png" class="floating-img img2" />
-  <img src="https://cdn-icons-png.flaticon.com/512/2965/2965567.png" class="floating-img img3" />
-  <img src="https://cdn-icons-png.flaticon.com/512/3197/3197944.png" class="floating-img img4" />
+  <img src="images/medical-icon1.svg" class="floating-img img1" alt="Medical Icon">
+  <img src="images/medical-icon2.svg" class="floating-img img2" alt="Medical Icon">
+  <img src="images/medical-icon3.svg" class="floating-img img3" alt="Medical Icon">
+  <img src="images/medical-icon4.svg" class="floating-img img4" alt="Medical Icon">
+
+  <!-- Error Modal -->
+  <div id="errorModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h3>Application Error</h3>
+      <p id="errorMessage"></p>
+      <button onclick="location.reload()">Try Again</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
