@@ -1,5 +1,6 @@
 // Global variables
 let isProcessing = false;
+let hasGenerated = false;
 
 // Utility functions
 function showError(message) {
@@ -56,7 +57,7 @@ async function loadTemplate() {
 function createDocument(content) {
   try {
     const zip = new PizZip(content);
-    const doc = new window.docxtemplater(zip, {
+    const doc = new docxtemplater(zip, {
       paragraphLoop: true,
       linebreaks: true,
       nullGetter: () => ''
@@ -102,7 +103,8 @@ function downloadDocument(blob, filename) {
 
 // Main function
 async function generateReport() {
-  if (isProcessing) {
+  // منع التكرار
+  if (isProcessing || hasGenerated) {
     return;
   }
   
@@ -135,6 +137,9 @@ async function generateReport() {
     const filename = `${patientData.name}_medical_report.docx`;
     downloadDocument(blob, filename);
 
+    // تعيين العلم لمنع التكرار
+    hasGenerated = true;
+
     // Show success message
     setTimeout(() => {
       showSuccess();
@@ -165,8 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // Start generating report when page loads
-  generateReport();
+  setTimeout(() => {
+    generateReport();
+  }, 500);
 });
-
-// Handle window load event as fallback
-window.onload = generateReport;
